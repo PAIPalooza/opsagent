@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Verify SPF Kit Purchase via Shopify",
+    "body": "- As a customer, I want the system to confirm I’ve bought a test kit so that I can unlock my product credit.\n\n**Tasks:**\n- Build `/verify-order` FastAPI endpoint\n- Connect to Shopify Orders API using email or order ID\n- Parse response for SPF kit product\n- Return result to Langflow or bot\n- Store customer + order in `customers` and `orders` tables",
+    "labels": ["Epic: Purchase Verification", "Priority: High", "Backend"]
+  },
+  {
+    "title": "Collect Survey Responses via Langflow",
+    "body": "- As a customer, I want to complete a short skincare survey so that I can get a credit toward my SPF purchase.\n\n**Tasks:**\n- Build Langflow prompt chain with 5–6 questions\n- Store responses via FastAPI `/submit-survey`\n- Save in `surveys` table\n- Identify shade match + finish preference",
+    "labels": ["Epic: Survey Collection", "Priority: High", "Langflow", "AI"]
+  },
+  {
+    "title": "Generate Discount Code after Survey Completion",
+    "body": "- As a customer, I want to receive a ₦3,000 discount code automatically so that I can purchase the full-size product at a lower cost.\n\n**Tasks:**\n- Create `/generate-discount` FastAPI endpoint\n- Integrate Shopify Discounts API\n- Log in `discounts` table\n- Set 7-day expiry",
+    "labels": ["Epic: Discount Generation", "Priority: High", "Backend", "Shopify"]
+  },
+  {
+    "title": "Generate Pre-Filled Cart Based on Survey",
+    "body": "- As a customer, I want my matched product and add-ons pre-filled in my cart so I don’t have to search manually.\n\n**Tasks:**\n- Generate cart URL using Shopify\n- Add matched shade + optional serum\n- Store URL in `recommendations` table",
+    "labels": ["Epic: Discount Generation", "Priority: Medium", "Backend", "Shopify"]
+  },
+  {
+    "title": "Log Full-Size Product Conversion",
+    "body": "- As the ops team, I want to know who redeemed their credit so I can track conversion rates.\n\n**Tasks:**\n- Create `/log-conversion` endpoint\n- Use Shopify webhook or frontend event\n- Store results in `conversions` table",
+    "labels": ["Epic: Conversion Tracking", "Priority: High", "Backend", "Analytics"]
+  },
+  {
+    "title": "Send 48hr Reminder if User Doesn’t Convert",
+    "body": "- As a customer, I want a reminder if I don’t use my credit so I don’t miss out.\n\n**Tasks:**\n- Schedule 48hr delay\n- Trigger DM via Zapier/ManyChat\n- Personalize message with cart link + shade",
+    "labels": ["Epic: Conversion Tracking", "Priority: Low", "Automation"]
+  },
+  {
+    "title": "Create Postgres Tables and FastAPI Models",
+    "body": "- As a data engineer, I want all interactions stored so we can analyze shade performance and feed our AI model.\n\n**Tasks:**\n- Create SQL schema: `customers`, `orders`, `surveys`, `discounts`, `recommendations`, `conversions`\n- Write CRUD methods in FastAPI\n- Seed test data",
+    "labels": ["Epic: Data Infrastructure", "Priority: High", "Backend", "Database"]
+  },
+  {
+    "title": "Integrate Langflow with FastAPI Backend",
+    "body": "- As a developer, I want the Langflow agent to connect with FastAPI so that it drives the full workflow.\n\n**Tasks:**\n- Connect `/verify-order` to Langflow entry node\n- POST survey data to `/submit-survey`\n- Trigger `/generate-discount`\n- Return cart URL to user",
+    "labels": ["Epic: Agent Integration", "Priority: High", "Langflow", "Backend"]
+  },
+  {
+    "title": "Test End-to-End Customer Flow",
+    "body": "- As the QA team, I want to simulate the full user journey so we catch bugs before launch.\n\n**Tasks:**\n- Test: verify order → complete survey → get discount → convert\n- Handle edge cases: invalid order ID, duplicate responses, expired credit\n- Confirm cart URL and DB logging",
+    "labels": ["Epic: QA", "Priority: High", "Testing"]
+  }
+]
